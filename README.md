@@ -25,26 +25,26 @@ I have a mock up of a [data center topology in Seattle in a public GitHub reposi
 Normally I would clone the repository and deploy the topology.  
 
 ```bash
-laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab_sea_datacenter.git
-Cloning into 'clab_sea_datacenter'...
+laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
+Cloning into 'clab-via-remote'...
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
 remote: Compressing objects: 100% (7/7), done.
 remote: Total 10 (delta 3), reused 10 (delta 3), pack-reused 0 (from 0)
 Receiving objects: 100% (10/10), 5.34 KiB | 5.34 MiB/s, done.
 Resolving deltas: 100% (3/3), done.
-claudia@vps-ovh:~/containerlab$ cd clab_sea_datacenter/
+claudia@vps-ovh:~/containerlab$ cd clab-via-remote/
 ```
 
 Say my teammate had made updates, i would `git pull`, and then `clab deploy`.
 
 ```bash
-claudia@vps-ovh:~/containerlab/clab_sea_datacenter$ git pull origin main
-From https://github.com/cldeluna/clab_sea_datacenter
+claudia@vps-ovh:~/containerlab/clab-via-remote$ git pull origin main
+From https://github.com/cldeluna/clab-via-remote
  * branch            main       -> FETCH_HEAD
 Already up to date.
 
-claudia@vps-ovh:~/containerlab/clab_sea_datacenter$ clab deploy --reconfigure
+claudia@vps-ovh:~/containerlab/clab-via-remote$ clab deploy --reconfigure
 ```
 
 Absolutly nothing wrong with this workflow and there are many use cases where you will continue to use this workflow.
@@ -55,21 +55,22 @@ In my environment, deploying the lab locally took **1 minute 9.096s**.
 
 I don't have time for all this cloning stuff!
 
-I have created a "github-labs" directory and I run all of my "remote" topologies in there.  Organize the way it makes sense for you (but please do organize!).
+I have created a "github-lab" directory and I run all of my "remote" topologies in there.  Organize the way it makes sense for you (but please do organize!).
 
 ```bash
-clab deploy -t https://github.com/cldeluna/clab_sea_datacenter
+clab deploy -t https://github.com/cldeluna/clab-via-remote
 ```
 
 It does not get much simpler, does it?
+Notice that I didn't even give it the URL to the topology YAML file, just the repository URL!
 
 
 ```bash
-claudia@vps-ovh:~/containerlab/github-lab$ clab deploy -t https://github.com/cldeluna/clab_sea_datacenter
+claudia@vps-ovh:~/containerlab/github-lab$ clab deploy -t https://github.com/cldeluna/clab-via-remote
 19:38:47 INFO Containerlab started version=0.70.2
 19:38:47 INFO Parsing & checking topology file=sea_datacenter.clab.yml
 19:38:47 INFO Creating docker network name=clab IPv4 subnet=172.20.20.0/24 IPv6 subnet=3fff:172:20:20::/64 MTU=0
-19:38:47 INFO Creating lab directory path=/home/claudia/containerlab/github-lab/clab_sea_datacenter/clab-dc1
+19:38:47 INFO Creating lab directory path=/home/claudia/containerlab/github-lab/clab-via-remote/clab-dc1
 19:38:48 INFO Creating container name=sea-dc-host4
 19:38:48 INFO Creating container name=sea-dc-host2
 19:38:48 INFO Creating container name=sea-dc-host5
@@ -85,20 +86,20 @@ claudia@vps-ovh:~/containerlab/github-lab$ clab deploy -t https://github.com/cld
 19:38:48 INFO Created link: sea-dc-spine1:eth1 ▪┄┄▪ sea-dc-spine2:eth1
 19:38:49 INFO Created link: sea-dc-spine1:eth6 ▪┄┄▪ sea-dc-spine2:eth6
 19:38:49 INFO Creating container name=sea-dc-host6
-...
+<snip>
 ```
 
 Now in my "github-labs" directory I have a new directory for this remote topology.
 
 ```bash
 claudia@vps-ovh:~/containerlab/github-lab$ ls
-clab_sea_datacenter
+clab-via-remote
 ```
 
 ```bash
 claudia@vps-ovh:~/containerlab$ tree github-lab/ -L 2
 github-lab/
-└── clab_sea_datacenter
+└── clab-via-remote
     ├── README.md
     ├── clab-dc1
     ├── sea-dc-leaf1-config.txt
@@ -115,9 +116,9 @@ github-lab/
 That directory is in fact a clone.  
 
 ```bash
-claudia@vps-ovh:~/containerlab/github-lab/clab_sea_datacenter$ git remote -v
-origin  https://github.com/cldeluna/clab_sea_datacenter (fetch)
-origin  https://github.com/cldeluna/clab_sea_datacenter (push)
+claudia@vps-ovh:~/containerlab/github-lab/clab-via-remote$ git remote -v
+origin  https://github.com/cldeluna/clab-via-remote (fetch)
+origin  https://github.com/cldeluna/clab-via-remote (push)
 ```
 
 In my environment, deploying the lab via the repo URL took **1m9.967s**.
@@ -166,7 +167,7 @@ Its hard to believe it could get easier, but it has.
 
 Network Engineers, there is no excuse for not testing and modeling!
 
-The only thing easier than containerlab (and consider that clab is a component), if you want quick fully formed topologies, is netlab from ipSpace and guess what?  Net lab also supports URL deployment.     Stay tuned...
+The only thing easier than containerlab (and consider that clab is a component), if you want quick fully formed topologies, is [netlab](https://netlab.tools/) from [ipSpace](https://www.ipspace.net/Main_Page) and guess what?  Net lab also supports URL deployment.     Stay tuned...
 
 ---
 
@@ -183,7 +184,7 @@ I need to spin up a topology from a github repository
 
 ```bash
  # cd <to the directory where you want to lab items created>
-clab deploy --topo https://github.com/cldeluna/clab_sea_datacenter/blob/main/sea_datacenter.clab.yml
+clab deploy --topo https://github.com/cldeluna/clab-via-remote.git
 ```
 
 What labs are running?
@@ -216,10 +217,10 @@ clab destroy -t topology.clab.yaml -y --cleanup
 ### Launching from GitHub Repo URL
 
 ```bash
-claudia@vps-ovh:~$ time containerlab deploy --topo https://github.com/cldeluna/clab_sea_datacenter/blob/main/sea_datacenter.clab.yml
+claudia@vps-ovh:~$ time containerlab deploy --topo https://github.com/cldeluna/clab-via-remote.git
 17:24:52 INFO Containerlab started version=0.70.1
 
-...
+<snip>
 
 17:26:02 INFO Adding host entries path=/etc/hosts
 17:26:02 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-dc1.conf
@@ -283,27 +284,26 @@ sys     0m0.004s
 Clone the repository and cd into the new directory.
 
 ```bash
-laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab_sea_datacenter.git
-Cloning into 'clab_sea_datacenter'...
+laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
+Cloning into 'clab-via-remote'...
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
 remote: Compressing objects: 100% (7/7), done.
 remote: Total 10 (delta 3), reused 10 (delta 3), pack-reused 0 (from 0)
 Receiving objects: 100% (10/10), 5.34 KiB | 5.34 MiB/s, done.
 Resolving deltas: 100% (3/3), done.
-claudia@vps-ovh:~/containerlab$ cd clab_sea_datacenter/
+claudia@vps-ovh:~/containerlab$ cd clab-via-remote/
 
 ```
 
 Deploy the topology
 
 ```bash
-
-claudia@vps-ovh:~/containerlab/clab_sea_datacenter$ time clab deploy
+claudia@vps-ovh:~/containerlab/clab-via-remote$ time clab deploy
 17:29:03 INFO Containerlab started version=0.70.1
 17:29:03 INFO Parsing & checking topology file=sea_datacenter.clab.yml
 
-...
+<snip>
 
 17:30:11 INFO Adding host entries path=/etc/hosts
 17:30:11 INFO Adding SSH config for nodes path=/etc/ssh/ssh_config.d/clab-dc1.conf
@@ -360,74 +360,5 @@ sys     0m0.006s
 
 
 
-
-
 ---
 
-
-
-_Data Center Leaf/Spine topology, VXLAN, MLAG, BGP underlay_
-
-**Configure Apline Hosts**
-
-  sea-dc-host1
-
-     docker exec -it clab-dc1-sea-dc-host1 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.110.0.101 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.110.0.1 dev eth1
-     ping -i 30 10.110.0.102
-
-  sea-dc-host2
-
-     docker exec -it clab-dc1-sea-dc-host2 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.130.0.101 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.130.0.1 dev eth1
-     ping -i 30 10.130.0.102
-
-  sea-dc-host3
-
-     docker exec -it clab-dc1-sea-dc-host3 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.110.0.101 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.110.0.1 dev eth1
-     ping -i 30 10.110.0.102
-
-  sea-dc-host4
-
-     docker exec -it clab-dc2-sea-dc-host4 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.130.0.102 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.130.0.1 dev eth1
-     ping -i 30 10.140.0.101
-
-  sea-dc-host5
-
-     docker exec -it clab-dc1-sea-dc-host5 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.120.0.101 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.120.0.1 dev eth1
-     ping -i 30 10.120.0.102
-
-  sea-dc-host6
-
-     docker exec -it clab-dc1-sea-dc-host6 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.120.0.102 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.120.0.1 dev eth1
-     ping -i 30 10.140.0.101
-
-  sea-dc-host7
-
-     docker exec -it clab-dc1-sea-dc-host7 sh
-     apk update
-     apk add net-tools iproute2 iputils-ping
-     ifconfig eth1 10.140.0.101 netmask 255.255.255.0
-     route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.140.0.1 dev eth1
