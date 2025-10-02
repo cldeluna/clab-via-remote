@@ -143,7 +143,7 @@ claudia@vps-ovh:~/containerlab/github-lab$ clab destroy --cleanup
 ```
 
 
-Simply move into the newly created topology directory and you an resume your usual workflow.
+Simply move into the newly created topology directory and you can resume your usual workflow with your abbreviated commands.
 
 Alternatively, use the broader commands (if this is the only lab you have up)
 
