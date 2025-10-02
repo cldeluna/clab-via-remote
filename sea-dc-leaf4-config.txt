@@ -1,0 +1,215 @@
+! sea-datacenter.cfg
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname sea-dc-leaf4
+!
+spanning-tree mode rapid-pvst
+!
+aaa root secret admin
+!
+username admin privilege 15 role network-admin secret admin
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+clock timezone America/Los_Angeles
+!
+management ssh
+   ip access-group default-mgmt
+   ipv6 access-group default-mgmt
+   idle-timeout 60
+   authentication mode password
+   login timeout 60
+   no shutdown
+!
+management api http-commands
+   no shutdown
+!
+management api gnmi
+   transport grpc default
+      ssl profile octa-ssl
+!
+management api netconf
+   transport ssh default
+!
+vlan 1100
+   name host_vlan1100
+!
+vlan 1200
+   name host_vlan1200
+!
+vlan 1300
+   name host_vlan1300
+!
+vlan 1400
+   name host_vlan1400
+!
+vlan 4093
+   name mlag_ibgp_peering
+!
+vlan 4094
+   name mlagpeer
+   trunk group mlagpeer
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Port-Channel1
+   description mlag_peer-link
+   switchport mode trunk
+   switchport trunk group mlagpeer
+!
+interface Ethernet1
+   description mlag_peer-link
+   channel-group 1 mode active
+   mtu 9214
+!
+interface Ethernet2
+   description sea-dc-spine1_eth5
+   no switchport
+   mtu 9214
+   ip address 10.10.1.7/31
+!
+interface Ethernet3
+   description sea-dc-spine2_eth5
+   no switchport
+   mtu 9214
+   ip address 10.10.2.7/31
+!
+interface Ethernet4
+   description mlag_peer-link
+   channel-group 1 mode active
+   mtu 9214
+!
+!
+interface Ethernet15
+   description sea-host4
+   switchport access vlan 1300
+   mtu 9214
+!
+interface Ethernet20
+   description sea-host7
+   switchport access vlan 1400
+   mtu 9214
+!
+!
+interface Loopback0
+   description mgmt_l0
+   ip address 10.200.0.4/32
+!
+interface Loopback1
+   description vxlan_tunnel_source
+   ip address 10.200.250.3/32
+!
+interface Management0
+   description oob_mgmt
+   vrf MGMT
+   ip address 172.20.20.106/24
+!
+interface Vlan1100
+   description host_vlan1100
+   ip address 10.110.0.3/24
+   ip virtual-router address 10.110.0.1
+   mtu 9214
+!
+interface Vlan1200
+   description host_vlan1200
+   ip address 10.120.0.3/24
+   ip virtual-router address 10.120.0.1
+   mtu 9214
+!
+interface Vlan1300
+   description host_vlan1300
+   ip address 10.130.0.3/24
+   ip virtual-router address 10.130.0.1
+   mtu 9214
+!
+interface Vlan1400
+   description host_vlan1400
+   ip address 10.140.0.3/24
+   ip virtual-router address 10.140.0.1
+   mtu 9214
+!
+interface Vlan4093
+   description mlag_ibgp_peering
+   ip address 192.0.0.2/24
+   mtu 9214
+!
+interface Vlan4094
+   description mlag_local-interface
+   no autostate
+   ip address 10.255.255.2/30
+   mtu 9214
+!
+interface Vxlan1
+   description vxlan1_interface
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 1100 vni 1100
+   vxlan vlan 1200 vni 1200
+   vxlan vlan 1300 vni 1300
+   vxlan vlan 1400 vni 1400
+   vxlan flood vtep 10.200.250.1
+!
+ip virtual-router mac-address 00:1c:73:00:00:ff
+!
+ip routing
+ip routing vrf MGMT
+!
+!
+mlag configuration
+   domain-id MLAG
+   local-interface Vlan4094
+   peer-address 10.255.255.1
+   peer-address heartbeat 10.255.255.1
+   peer-link Port-Channel1
+   dual-primary detection delay 10 action errdisable all-interfaces
+   dual-primary recovery delay mlag 60 non-mlag 0
+!
+ip route vrf MGMT 0.0.0.0/0 172.20.20.1
+!
+router bgp 65502
+   router-id 10.200.0.4
+   update wait-install
+   no bgp default ipv4-unicast
+   maximum-paths 2 ecmp 2
+   neighbor SPINE_UNDERLAY peer group
+   neighbor SPINE_UNDERLAY remote-as 65500
+   neighbor SPINE_UNDERLAY send-community
+   neighbor SPINE_UNDERLAY maximum-routes 12000
+   neighbor MLAG_IBGP_PEER peer group
+   neighbor MLAG_IBGP_PEER remote-as 65502
+   neighbor MLAG_IBGP_PEER next-hop-self
+   neighbor MLAG_IBGP_PEER send-community
+   neighbor MLAG_IBGP_PEER maximum-routes 12000
+   neighbor 10.10.1.6 peer group SPINE_UNDERLAY
+   neighbor 10.10.1.6 description sea-dc-spine1
+   neighbor 10.10.2.6 peer group SPINE_UNDERLAY
+   neighbor 10.10.2.6 description sea-dc-spine2
+   neighbor 192.0.0.1 peer group MLAG_IBGP_PEER
+   neighbor 192.0.0.1 description sea-dc-leaf1
+   !
+   address-family ipv4
+      neighbor SPINE_UNDERLAY activate
+      neighbor MLAG_IBGP_PEER activate
+      redistribute connected
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

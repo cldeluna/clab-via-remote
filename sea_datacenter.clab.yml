@@ -1,0 +1,140 @@
+name: dc1
+
+topology:
+  nodes:
+    sea-dc-spine1:
+      kind: ceos
+      image: ceos:latest
+      startup-config: sea-dc-spine1-config.txt
+      ports:
+        - "23101:22"
+      mgmt-ipv4: 172.20.20.101
+
+    sea-dc-spine2:
+      kind: ceos
+      image: ceos:latest
+      startup-config: sea-dc-spine2-config.txt
+      ports:
+        - "23102:22"
+      mgmt-ipv4: 172.20.20.102
+
+    sea-dc-leaf1:
+      kind: ceos
+      image: ceos:latest
+      startup-config: sea-dc-leaf1-config.txt
+      ports:
+        - "23103:22"
+      mgmt-ipv4: 172.20.20.103
+
+    sea-dc-leaf2:
+      kind: ceos
+      image: ceos:latest
+      startup-config: sea-dc-leaf2-config.txt
+      ports:
+        - "23104:22"
+      mgmt-ipv4: 172.20.20.104
+
+    sea-dc-leaf3:
+      kind: ceos
+      image: ceos:latest
+      startup-config: sea-dc-leaf3-config.txt
+      ports:
+        - "23105:22"
+      mgmt-ipv4: 172.20.20.105
+
+    sea-dc-leaf4:
+      kind: ceos
+      image: ceos:latest
+      startup-config: sea-dc-leaf4-config.txt
+      ports:
+        - "23106:22"
+      mgmt-ipv4: 172.20.20.106
+
+    sea-dc-host1:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "22107:22"
+      mgmt-ipv4: 172.20.20.107
+
+    sea-dc-host2:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "22108:22"
+      mgmt-ipv4: 172.20.20.108
+
+    sea-dc-host3:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "23109:22"
+      mgmt-ipv4: 172.20.20.109
+
+    sea-dc-host4:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "22110:22"
+      mgmt-ipv4: 172.20.20.110
+
+    sea-dc-host5:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "23111:22"
+      mgmt-ipv4: 172.20.20.111
+
+    sea-dc-host6:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "23112:22"
+      mgmt-ipv4: 172.20.20.112
+
+    sea-dc-host7:
+      kind: linux
+      image: alpine:latest
+      cmd: sleep infinity
+      ports:
+        - "23113:22"
+      mgmt-ipv4: 172.20.20.113
+
+
+  links:
+    # Spine Interlinks (MLAG - if required)
+    - endpoints: ["sea-dc-spine1:eth1", "sea-dc-spine2:eth1"]
+    - endpoints: ["sea-dc-spine1:eth6", "sea-dc-spine2:eth6"]
+    # Spine to Leaf Interlinks (Fabric - BGP)   
+    - endpoints: ["sea-dc-spine1:eth2", "sea-dc-leaf1:eth2"]
+    - endpoints: ["sea-dc-spine1:eth3", "sea-dc-leaf2:eth2"]
+    - endpoints: ["sea-dc-spine1:eth4", "sea-dc-leaf3:eth2"]
+    - endpoints: ["sea-dc-spine1:eth5", "sea-dc-leaf4:eth2"]
+    - endpoints: ["sea-dc-spine2:eth2", "sea-dc-leaf1:eth3"]
+    - endpoints: ["sea-dc-spine2:eth3", "sea-dc-leaf2:eth3"]
+    - endpoints: ["sea-dc-spine2:eth4", "sea-dc-leaf3:eth3"]
+    - endpoints: ["sea-dc-spine2:eth5", "sea-dc-leaf4:eth3"]
+    # Leaf to Leaf Interlinks (MLAG)     
+    - endpoints: ["sea-dc-leaf1:eth1", "sea-dc-leaf2:eth1"]
+    - endpoints: ["sea-dc-leaf1:eth4", "sea-dc-leaf2:eth4"]
+    - endpoints: ["sea-dc-leaf3:eth1", "sea-dc-leaf4:eth1"]
+    - endpoints: ["sea-dc-leaf3:eth4", "sea-dc-leaf4:eth4"]
+    # Leaf to Host Downlinks
+    - endpoints: ["sea-dc-leaf1:eth5", "sea-dc-host1:eth1"]
+    - endpoints: ["sea-dc-leaf2:eth15", "sea-dc-host2:eth1"]
+    - endpoints: ["sea-dc-leaf3:eth5", "sea-dc-host3:eth1"]
+    - endpoints: ["sea-dc-leaf4:eth15", "sea-dc-host4:eth1"]
+    - endpoints: ["sea-dc-leaf1:eth10", "sea-dc-host5:eth1"]
+    - endpoints: ["sea-dc-leaf3:eth10", "sea-dc-host6:eth1"]
+    - endpoints: ["sea-dc-leaf4:eth20", "sea-dc-host7:eth1"]
+
+
+#mgmt:
+#  network: clab-mgmt
+#  ipv4-subnet: 172.20.20.0/24
