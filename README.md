@@ -2,7 +2,7 @@
 
 *An intellectual is a man who says a simple thing in a diffcut way; an artist is a man who says a difficult thing in a simple way.* - Charles Bukowski - Notes of a Dirty Old Man, 1969
 
-In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" style="zoom:40%;" /> [containerlab](https://containerlab.dev/) give us a little art with our technology.  
+In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" style="zoom:40%;" /> [containerlab](https://containerlab.dev/) gives us a little art with our technology.  
 
 Already making spinning up labs nearly efforless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
 
@@ -20,7 +20,7 @@ My containerlab environment is on a VPS-3 VM running on [OVHcloud](https://us.ov
 
 ## Deploying Locally
 
-I have a mock up of a [data center topology in Seattle in a public GitHub repository](https://github.com/cldeluna/clab-via-remote.git).  
+I have a mock up of a [data center topology in a public GitHub repository](https://github.com/cldeluna/clab-via-remote.git).  
 
 Normally I would clone the repository and deploy the topology.  
 
@@ -89,7 +89,7 @@ claudia@vps-ovh:~/containerlab/github-lab$ clab deploy -t https://github.com/cld
 <snip>
 ```
 
-Now in my "github-labs" directory I have a new directory for this remote topology.
+Now in my "github-lab" directory I have a new directory for this remote topology.
 
 ```bash
 claudia@vps-ovh:~/containerlab/github-lab$ ls
@@ -113,7 +113,7 @@ github-lab/
 2 directories, 8 files
 ```
 
-That directory is in fact a clone.  
+That directory is in fact a clone.  I hope this is starting to feel familiar.  Containerlab is just saving us steps.
 
 ```bash
 claudia@vps-ovh:~/containerlab/github-lab/clab-via-remote$ git remote -v
@@ -138,16 +138,16 @@ claudia@vps-ovh:~/containerlab/github-lab$ clab destroy --cleanup
           
    ERROR  
           
-  No topology files matching the pattern *.clab.yml or *.clab.yaml found.                                             
+  No topology files matching the pattern *.clab.yml or *.clab.yaml found.                             
 
 ```
 
 
 Simply move into the newly created topology directory and you an resume your usual workflow.
 
-Alternatively, use the broader comands (if this is the only lab you have up)
+Alternatively, use the broader commands (if this is the only lab you have up)
 
-This lets you insepct all your labs.
+This lets you inspect all your labs.
 
 ```bash
 clab inspect --all
@@ -180,7 +180,7 @@ I need to spin up a local topology
 clab deploy
 ```
 
-I need to spin up a topology from a github repository
+I need to spin up a topology from a GitHub repository
 
 ```bash
  # cd <to the directory where you want to lab items created>
@@ -207,7 +207,7 @@ I have a lingering topology with a status of `exit`.
 I need to shut down a specific topology.
 
 ```bash
-clab destroy -t topology.clab.yaml -y --cleanup
+clab destroy -t <path and name of topology YAML file> -y --cleanup
 ```
 
 
@@ -281,7 +281,7 @@ sys     0m0.004s
 
 ### Launching locally from cloned repo
 
-Clone the repository and cd into the new directory.
+Clone the repository and change directory (cd) into the new directory.
 
 ```bash
 laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
