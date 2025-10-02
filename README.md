@@ -2,17 +2,15 @@
 
 *An intellectual is a man who says a simple thing in a diffcut way; an artist is a man who says a difficult thing in a simple way.* - Charles Bukowski - Notes of a Dirty Old Man, 1969
 
-In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, Nokia's containerlabs give us a little art with our technology.  
+In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" style="zoom:40%;" /> [containerlab](https://containerlab.dev/) give us a little art with our technology.  
 
-Already making spinning up labs nearly efforless and fully automation friendly, its no surprise the Roman Dodin's containerlab team has gone a step further.
+Already making spinning up labs nearly efforless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
 
 How about spinning up a lab right from its GitHub repository?
 
-Network Engineers, there is no longer any excuse for not testing!
-
 Lets take a look.
 
-### Environment
+## Environment
 
 My containerlab environment is on a VPS-3 VM running on [OVHcloud](https://us.ovhcloud.com) (Very cost effective as you see!)
 
@@ -22,7 +20,7 @@ My containerlab environment is on a VPS-3 VM running on [OVHcloud](https://us.ov
 
 ## Deploying Locally
 
-I have a mock up of a [data center topology in Seattle in a public GitHub repository](https://github.com/cldeluna/clab_sea_datacenter).  
+I have a mock up of a [data center topology in Seattle in a public GitHub repository](https://github.com/cldeluna/clab-via-remote.git).  
 
 Normally I would clone the repository and deploy the topology.  
 
@@ -51,20 +49,24 @@ claudia@vps-ovh:~/containerlab/clab_sea_datacenter$ clab deploy --reconfigure
 
 Absolutly nothing wrong with this workflow and there are many use cases where you will continue to use this workflow.
 
-In my environment, deploying the lab locally took **1m9.096s**.
-
-
+In my environment, deploying the lab locally took **1 minute 9.096s**.
 
 ## Deploying the topology via the GitHub URL
 
 I don't have time for all this cloning stuff!
 
-I have created a "github-labs" directory and I run all of my "remote" topologies in there.
+I have created a "github-labs" directory and I run all of my "remote" topologies in there.  Organize the way it makes sense for you (but please do organize!).
+
+```bash
+clab deploy -t https://github.com/cldeluna/clab_sea_datacenter
+```
+
+It does not get much simpler, does it?
 
 
 ```bash
 claudia@vps-ovh:~/containerlab/github-lab$ clab deploy -t https://github.com/cldeluna/clab_sea_datacenter
-19:38:47 INFO Containerlab started version=0.70.1
+19:38:47 INFO Containerlab started version=0.70.2
 19:38:47 INFO Parsing & checking topology file=sea_datacenter.clab.yml
 19:38:47 INFO Creating docker network name=clab IPv4 subnet=172.20.20.0/24 IPv6 subnet=3fff:172:20:20::/64 MTU=0
 19:38:47 INFO Creating lab directory path=/home/claudia/containerlab/github-lab/clab_sea_datacenter/clab-dc1
@@ -89,12 +91,12 @@ claudia@vps-ovh:~/containerlab/github-lab$ clab deploy -t https://github.com/cld
 Now in my "github-labs" directory I have a new directory for this remote topology.
 
 ```bash
-claudia@vps-331cdbb4:~/containerlab/github-lab$ ls
+claudia@vps-ovh:~/containerlab/github-lab$ ls
 clab_sea_datacenter
 ```
 
 ```bash
-claudia@vps-331cdbb4:~/containerlab$ tree github-lab/ -L 2
+claudia@vps-ovh:~/containerlab$ tree github-lab/ -L 2
 github-lab/
 └── clab_sea_datacenter
     ├── README.md
@@ -113,12 +115,10 @@ github-lab/
 That directory is in fact a clone.  
 
 ```bash
-claudia@vps-331cdbb4:~/containerlab/github-lab/clab_sea_datacenter$ git remote -v
+claudia@vps-ovh:~/containerlab/github-lab/clab_sea_datacenter$ git remote -v
 origin  https://github.com/cldeluna/clab_sea_datacenter (fetch)
 origin  https://github.com/cldeluna/clab_sea_datacenter (push)
 ```
-
-
 
 In my environment, deploying the lab via the repo URL took **1m9.967s**.
 
@@ -133,7 +133,7 @@ Keep in mind that when working locally you have a local topology file ( *.clab.y
 My topology directory "github-lab" has no topoloty file so those commands will fail.
 
 ```bash
-claudia@vps-331cdbb4:~/containerlab/github-lab$ clab destroy --cleanup
+claudia@vps-ovh:~/containerlab/github-lab$ clab destroy --cleanup
           
    ERROR  
           
@@ -160,13 +160,15 @@ clab destroy -a -y
 
 Note: when using `-a`, the `--cleanup` option will not remove all the lab directories (this is documented behavior). 
 
+## Conclusion
 
+Its hard to believe it could get easier, but it has.
 
+Network Engineers, there is no excuse for not testing and modeling!
 
+The only thing easier than containerlab (and consider that clab is a component), if you want quick fully formed topologies, is netlab from ipSpace and guess what?  Net lab also supports URL deployment.     Stay tuned...
 
-The only thing easier than containerlab, if you want quick fully formed topologies, is netlab from ipSpace and guess what?  Net lab also supports URL deployment.     So ive got the next topic to investigate all lined up.
-
-
+---
 
 ### My containerlab cheat sheet
 
@@ -210,8 +212,6 @@ clab destroy -t topology.clab.yaml -y --cleanup
 
 
 ---
-
-
 
 ### Launching from GitHub Repo URL
 
@@ -280,6 +280,8 @@ sys     0m0.004s
 
 ### Launching locally from cloned repo
 
+Clone the repository and cd into the new directory.
+
 ```bash
 laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab_sea_datacenter.git
 Cloning into 'clab_sea_datacenter'...
@@ -293,9 +295,7 @@ claudia@vps-ovh:~/containerlab$ cd clab_sea_datacenter/
 
 ```
 
-
-
-
+Deploy the topology
 
 ```bash
 
