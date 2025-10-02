@@ -131,7 +131,7 @@ I executed my deploy command from the "github-lab" directory.
 
 Keep in mind that when working locally you have a local topology file ( *.clab.yml or *.clab.yaml ) and your clab commands are optimized so you can use shortcuts like `clab inspect` and `clab destroy` if you are working in your topology directory.  
 
-My topology directory "github-lab" has no topoloty file so those commands will fail.
+My topology directory "github-lab" has no topology YAML file so those commands will fail.
 
 ```bash
 claudia@vps-ovh:~/containerlab/github-lab$ clab destroy --cleanup
