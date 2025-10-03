@@ -2,9 +2,9 @@
 
 *An intellectual is a man who says a simple thing in a diffcut way; an artist is a man who says a difficult thing in a simple way.* - Charles Bukowski - Notes of a Dirty Old Man, 1969
 
-In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" style="zoom:40%;" /> [containerlab](https://containerlab.dev/) gives us a little art with our technology.  
+In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) [containerlab](https://containerlab.dev/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" width="100px" style="zoom:40%;" /> gives us a little art with our technology.  
 
-Already making spinning up labs nearly efforless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
+Already making spinning up labs nearly effortless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
 
 How about spinning up a lab right from its GitHub repository?
 
@@ -25,7 +25,7 @@ I have a mock up of a [data center topology in a public GitHub repository](https
 Normally I would clone the repository and deploy the topology.  
 
 ```bash
-laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
+claudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
 Cloning into 'clab-via-remote'...
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
@@ -159,15 +159,17 @@ This lets you shut down all your labs (without prompting).
 clab destroy -a -y 
 ```
 
-Note: when using `-a`, the `--cleanup` option will not remove all the lab directories (this is documented behavior). 
+> [!NOTE]
+> When using `-a`, the `--cleanup` option will not remove all the lab directories (this is documented behavior).
 
 ## Conclusion
 
-Its hard to believe it could get easier, but it has.
+It's hard to believe it could get easier, but it has.
 
-Network Engineers, there is no excuse for not testing and modeling!
+> [!IMPORTANT]
+> Network Engineers, there is no excuse for not testing and modeling!
 
-The only thing easier than containerlab (and consider that clab is a component), if you want quick fully formed topologies, is [netlab](https://netlab.tools/) from [ipSpace](https://www.ipspace.net/Main_Page) and guess what?  Net lab also supports URL deployment.     Stay tuned...
+The only thing easier than containerlab (and consider that clab is a component), if you want quick fully formed topologies, is [netlab](https://netlab.tools/) from [ipSpace](https://www.ipspace.net/Main_Page) and guess what?  Netlab also supports URL deployment.  Stay tuned...
 
 ---
 
@@ -284,7 +286,7 @@ sys     0m0.004s
 Clone the repository and change directory (cd) into the new directory.
 
 ```bash
-laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
+claudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
 Cloning into 'clab-via-remote'...
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
