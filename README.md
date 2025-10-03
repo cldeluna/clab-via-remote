@@ -164,7 +164,7 @@ clab destroy -a -y
 
 ## Conclusion
 
-Its hard to believe it could get easier, but it has.
+It's hard to believe it could get easier, but it has.
 
 > [!IMPORTANT]
 > Network Engineers, there is no excuse for not testing and modeling!
