@@ -2,7 +2,7 @@
 
 *An intellectual is a man who says a simple thing in a diffcut way; an artist is a man who says a difficult thing in a simple way.* - Charles Bukowski - Notes of a Dirty Old Man, 1969
 
-In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" style="zoom:40%;" /> [containerlab](https://containerlab.dev/) gives us a little art with our technology.  
+In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) [containerlab](https://containerlab.dev/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" width="100px" style="zoom:40%;" /> gives us a little art with our technology.  
 
 Already making spinning up labs nearly effortless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
 
