@@ -159,7 +159,8 @@ This lets you shut down all your labs (without prompting).
 clab destroy -a -y 
 ```
 
-Note: when using `-a`, the `--cleanup` option will not remove all the lab directories (this is documented behavior). 
+> [!NOTE]
+> When using `-a`, the `--cleanup` option will not remove all the lab directories (this is documented behavior).
 
 ## Conclusion
 
