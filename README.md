@@ -166,7 +166,8 @@ clab destroy -a -y
 
 Its hard to believe it could get easier, but it has.
 
-Network Engineers, there is no excuse for not testing and modeling!
+> [!IMPORTANT]
+> Network Engineers, there is no excuse for not testing and modeling!
 
 The only thing easier than containerlab (and consider that clab is a component), if you want quick fully formed topologies, is [netlab](https://netlab.tools/) from [ipSpace](https://www.ipspace.net/Main_Page) and guess what?  Net lab also supports URL deployment.     Stay tuned...
 
