@@ -25,7 +25,7 @@ I have a mock up of a [data center topology in a public GitHub repository](https
 Normally I would clone the repository and deploy the topology.  
 
 ```bash
-laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
+claudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
 Cloning into 'clab-via-remote'...
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
@@ -284,7 +284,7 @@ sys     0m0.004s
 Clone the repository and change directory (cd) into the new directory.
 
 ```bash
-laudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
+claudia@vps-ovh:~/containerlab$ git clone https://github.com/cldeluna/clab-via-remote.git
 Cloning into 'clab-via-remote'...
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
