@@ -4,7 +4,7 @@
 
 In a world where technology seems to be working against us and seemingly simple things require far more effort than expected and warranted, [Nokia's](https://www.nokia.com/) <img src="https://containerlab.dev/images/containerlab_export_white_ink.svg?sanitize=true/" style="zoom:40%;" /> [containerlab](https://containerlab.dev/) gives us a little art with our technology.  
 
-Already making spinning up labs nearly efforless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
+Already making spinning up labs nearly effortless **and** fully automation friendly, it is no surprise that Roman Dodin's containerlab team has gone a step further.
 
 How about spinning up a lab right from its GitHub repository?
 
